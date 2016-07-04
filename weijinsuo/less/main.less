@@ -1,1 +1,74 @@
-@main_color:#e92322
+
+
+
+/**
+ * 公共样式
+ */
+body{
+    font-family: "Helvetica Neue", Helvetica, Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;
+}
+
+/**
+ * 字体图标
+ */
+@font-face{
+    font-family:"woan";
+    src:url('../font/MiFie-Web-Font.eot') format('embedded-opentype'),
+    url('../font/MiFie-Web-Font.svg') format('svg'),
+    url('../font/MiFie-Web-Font.ttf') format('truetype'),
+    url('../font/MiFie-Web-Font.woff') format("woff")
+    // src: url('../font/MiFie-Web-Font.eot') format('embedded-opentype'), 
+    // url('../font/MiFie-Web-Font.svg') format('svg'), url('../font/MiFie-Web-Font.ttf') format('truetype'), url('../font/MiFie-Web-Font.woff') format('woff');
+}
+
+/**
+ * 通配选择器
+ */
+
+[class^="icon-"],[class*=" icon-"]{
+    font-family: woan;
+    font-style: normal;
+}
+
+.icon-mobilephone::before {
+  content: "\e908";
+  font-size: 13px;
+}
+
+.icon-telephone::before {
+  content: "\e909";
+  font-size: 15px;
+}
+
+.icon-logo::before {
+  content: "\e93e";
+}
+
+.icon-icon::before {
+  content: "\e920";
+}
+/**
+ * header
+ */
+#header{
+    height: 200px;
+    >.topbar{
+        height:40px;
+        border-bottom: 1px solid #c0c0c0;
+    }
+}
+
+
+
+
+/**
+ * 测试样式
+ */
+section{
+    height:200px;
+    background-color: #fff;
+    &:nth-of-type(2n){
+        background-color: #f5f5f5;
+    }
+}
+
