@@ -20,7 +20,6 @@ body{
  * header
  */
 #header{
-    height: 200px;
     >.topbar{
         height:40px;
         border-bottom: 1px solid #c0c0c0;
@@ -52,6 +51,7 @@ body{
         position: absolute;
         left: 50%;
         margin-left: -60px;
+        z-index:1001;
         top:30px;
       }
     };
@@ -69,19 +69,76 @@ body{
     }
 }
 
+/**
+ * 通栏广告轮播
+ */
+#main_ad{
+    > .carousel-inner > .item{
+        //背景图片不要重复。剧中
+        background-repeat: no-repeat;
+        background-position: content content;
+        //background-size :如 100px  100px  2:percentage 90% 90%  3：cover 以背景图片的较小边 放大到容器边。 contain 以容器最大边
+        background-size: cover;
+        > img {
+            width: 100%;
+        }
+    }
+}
+//什么时候高度不能用 410px 当屏幕宽度大于 768px 时候 也就是最小宽带是768px 此时使用大图
+@media (min-width:768px) {
+    #main_ad > .carousel-inner > .item{
+        height:410px;
+    }
+}
 
 
+#trait {
+    padding: 50px 0;
+    border-bottom: 1px solid #c0c0c0;
+    > .container > .row > div > a:hover{
+        text-decoration:none;
+        color:@main_color;
+    };
+    > .container > .row > div > a{
+         color:#888;
+    };
+    > .container > .row > div  i {
+        font-size:32px
+    };
+    > .container > .row > div{
+        margin-bottom:20px;
+        margin-top: 20px
+    }        
+    
+    
+}
+
+/**
+立即语句
+ */
+
+#subsribe{
+    border-bottom:1px solid #c0c0c0;
+    >.container > p {
+        line-height:60px;
+        margin-bottom: 0px;
+        span {
+            color:@main_color
+        };
+        a {
+            color:@main_color;
+            border-bottom:1px dashed @main_color;
+            &:hover{
+                text-decoration:none;
+            }
+        };
+
+    };
+}
 
 /**
  * 测试样式
  */
-section{
-    height:200px;
-    background-color: #fff;
-    &:nth-of-type(2n){
-        background-color: #f5f5f5;
-    }
-}
 
 
 
@@ -174,8 +231,17 @@ section{
 .icon-icon::before {
   content: "\e920";
 }
+.icon-uniE905::before{
+    content:"\e905"
+}
 
+.icon-uniE906::before{
+    content:"\e906"
+}
 
+.icon-uniE907::before{
+    content:"\e907"
+}
 //btn 自定义样式
 .btn-woan { 
   color: #FFFFFF; 
@@ -228,6 +294,7 @@ fieldset[disabled] .btn-woan.active {
 .navbar-woan {
   background-color: #fff;
   border-color: #f5f5f5;
+  margin-bottom: 0;
 }
 .navbar-woan .navbar-brand {
   color: #777;
