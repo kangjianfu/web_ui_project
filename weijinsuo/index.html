@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, user-scalabe=no,initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
 	<title>微金所</title>
+ 
 	<link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -14,23 +15,70 @@
       <script src="lib/html5shiv/html5shiv.min.js"></script>
       <script src="lib/respond.js/respond.min.js"></script>
     <![endif]-->
-	<link rel="stylesheet/less" href="less/main.less">
+<!-- <link rel="stylesheet" href="css/main.css"> -->
+	<link rel="stylesheet/less" href="less/main.less"> 
 
 </head>
 <body>
   <!-- 头部区域 -->
 	<header id="header">
-   <div class="topbar">
+   <div class="topbar visible-md visible-lg">
      <div class="container">
        <div class="row">
-         <div class="col-md-2"><i class="icon-mobilephone"></i><span>手机微金所</span><i class="glyphicon glyphicon-chevron-down"></i></div>
-         <div class="col-md-5"></div>
-        <div class="col-md-2"></div>
-        <div class="col-md-3"></div>
+         <div class="col-md-2 text-center">
+           <a href="" class="moblie_link"> <i class="icon-mobilephone"></i>
+             <span>手机微金所</span> <i class="glyphicon glyphicon-chevron-down"></i>
+             <img src="images/c_06.jpg" alt="扫一次"></a>
+         </div>
+         <div class="col-md-5 text-center"> <i class="icon-telephone"></i>
+           <span>4006-89-4006（服务时间：9:00-21:00）</span>
+         </div>
+        <div class="col-md-2 text-center">
+        <a href="">常见问题</a>
+        <a href="">财富指南</a>
+        </div>
+        <div class="col-md-3 text-center">
+          <a href="" class="btn btn-woan btn-sm">免费注册</a>
+          <a href="" class="btn btn-link btn-sm">登录</a>
+        </div>
        </div>
      </div>
    </div>
-   <nav></nav> 
+
+
+
+ <nav class="navbar navbar-woan navbar-static-top">
+     <div class="container">
+       <div class="navbar-header">
+         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav_list" aria-expanded="false">
+            <span class="sr-only">切换菜单</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+           <a href="#" class="navbar-brand">
+            <i class="icon-icon"></i>
+            <i class="icon-logo"></i>
+           </a>
+       </div>
+       <div id="nav_list" class="collapse navbar-collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#">我要投资</a></li>
+                <li><a href="#">我要借款</a></li>
+                <li><a href="#">平台介绍</a></li>
+                <li><a href="#">新手专区</a></li>
+                <li><a href="#">最新动态</a></li>
+                <li><a href="#">微论坛</a></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right hidden-sm">
+                <li><a href="#">个人中心</a></li>
+              </ul>
+            </div>
+     </div>
+   </nav> 
+
+  
+
   </header>
   <!-- /头部区域 -->
 

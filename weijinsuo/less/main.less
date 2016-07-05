@@ -1,9 +1,7 @@
-
-
-
 /**
  * 公共样式
  */
+@main_color:#e92322;
 body{
     font-family: "Helvetica Neue", Helvetica, Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;
 }
@@ -16,10 +14,139 @@ body{
     src:url('../font/MiFie-Web-Font.eot') format('embedded-opentype'),
     url('../font/MiFie-Web-Font.svg') format('svg'),
     url('../font/MiFie-Web-Font.ttf') format('truetype'),
-    url('../font/MiFie-Web-Font.woff') format("woff")
-    // src: url('../font/MiFie-Web-Font.eot') format('embedded-opentype'), 
-    // url('../font/MiFie-Web-Font.svg') format('svg'), url('../font/MiFie-Web-Font.ttf') format('truetype'), url('../font/MiFie-Web-Font.woff') format('woff');
+    url('../font/MiFie-Web-Font.woff') format("woff");
 }
+/**
+ * header
+ */
+#header{
+    height: 200px;
+    >.topbar{
+        height:40px;
+        border-bottom: 1px solid #c0c0c0;
+        line-height: 40px;//设置行高
+        > .container >.row > div + div{
+          border-left: 1px solid #c0c0c0;
+         
+        };
+        >.container >.row >div{
+           height:40px;
+          font-size:12px;
+          color:#888;
+        }
+        > .container > .row a:hover{
+          text-decoration:none
+        };
+    };
+    .moblie_link{
+      font-size:12px;
+      color:#888;
+      &:hover{
+        text-decoration: none;
+        > img{
+          display:block;
+        }
+      };
+      > img{
+        display: none;
+        position: absolute;
+        left: 50%;
+        margin-left: -60px;
+        top:30px;
+      }
+    };
+    .icon-icon{
+        font-size:50px;
+        color:@main_color;
+        line-height:50px;
+        vertical-align: middle;
+    };
+    .icon-logo{
+        font-size:32px;
+        color:#333;
+        line-height:50px;
+        vertical-align:middle;
+    }
+}
+
+
+
+
+/**
+ * 测试样式
+ */
+section{
+    height:200px;
+    background-color: #fff;
+    &:nth-of-type(2n){
+        background-color: #f5f5f5;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * 通配选择器
@@ -47,28 +174,155 @@ body{
 .icon-icon::before {
   content: "\e920";
 }
-/**
- * header
- */
-#header{
-    height: 200px;
-    >.topbar{
-        height:40px;
-        border-bottom: 1px solid #c0c0c0;
-    }
+
+
+//btn 自定义样式
+.btn-woan { 
+  color: #FFFFFF; 
+  background-color: #E92322; 
+  border-color: #DB3B43; 
+} 
+ 
+.btn-woan:hover, 
+.btn-woan:focus, 
+.btn-woan:active, 
+.btn-woan.active, 
+.open .dropdown-toggle.btn-woan { 
+  color: #FFFFFF; 
+  background-color: #D12681; 
+  border-color: #DB3B43; 
+} 
+ 
+.btn-woan:active, 
+.btn-woan.active, 
+.open .dropdown-toggle.btn-woan { 
+  background-image: none; 
+} 
+ 
+.btn-woan.disabled, 
+.btn-woan[disabled], 
+fieldset[disabled] .btn-woan, 
+.btn-woan.disabled:hover, 
+.btn-woan[disabled]:hover, 
+fieldset[disabled] .btn-woan:hover, 
+.btn-woan.disabled:focus, 
+.btn-woan[disabled]:focus, 
+fieldset[disabled] .btn-woan:focus, 
+.btn-woan.disabled:active, 
+.btn-woan[disabled]:active, 
+fieldset[disabled] .btn-woan:active, 
+.btn-woan.disabled.active, 
+.btn-woan[disabled].active, 
+fieldset[disabled] .btn-woan.active { 
+  background-color: #E92322; 
+  border-color: #DB3B43; 
+} 
+ 
+.btn-woan .badge { 
+  color: #E92322; 
+  background-color: #FFFFFF; 
 }
-
-
-
-
 /**
- * 测试样式
+ * navbar 自定义样式
  */
-section{
-    height:200px;
-    background-color: #fff;
-    &:nth-of-type(2n){
-        background-color: #f5f5f5;
-    }
+.navbar-woan {
+  background-color: #fff;
+  border-color: #f5f5f5;
 }
-
+.navbar-woan .navbar-brand {
+  color: #777;
+  height:80px;
+}
+.navbar-woan .navbar-brand:hover,
+.navbar-woan .navbar-brand:focus {
+  color: #5e5e5e;
+  background-color: transparent;
+}
+.navbar-woan .navbar-text {
+  color: #777;
+}
+.navbar-woan .navbar-nav > li > a {
+  color: #777;
+  line-height:48px;
+  font-size:14px
+}
+.navbar-woan .navbar-nav > li > a:hover,
+.navbar-woan .navbar-nav > li > a:focus {
+  color: #333;
+  background-color: transparent;
+  border-bottom:2px solid @main_color;
+}
+.navbar-woan .navbar-nav > .active > a,
+.navbar-woan .navbar-nav > .active > a:hover,
+.navbar-woan .navbar-nav > .active > a:focus {
+  color: #555;
+  background-color: transparent;
+  border-bottom:2px solid @main_color;
+}
+.navbar-woan .navbar-nav > .disabled > a,
+.navbar-woan .navbar-nav > .disabled > a:hover,
+.navbar-woan .navbar-nav > .disabled > a:focus {
+  color: #ccc;
+  background-color: transparent;
+}
+.navbar-woan .navbar-toggle {
+  border-color: #ddd;
+}
+.navbar-woan .navbar-toggle:hover,
+.navbar-woan .navbar-toggle:focus {
+  background-color: #ddd;
+}
+.navbar-woan .navbar-toggle .icon-bar {
+  background-color: #888;
+}
+.navbar-woan .navbar-collapse,
+.navbar-woan .navbar-form {
+  border-color: #e7e7e7;
+}
+.navbar-woan .navbar-nav > .open > a,
+.navbar-woan .navbar-nav > .open > a:hover,
+.navbar-woan .navbar-nav > .open > a:focus {
+  color: #555;
+  background-color: #e7e7e7;
+}
+@media (max-width: 767px) {
+  .navbar-woan .navbar-nav .open .dropdown-menu > li > a {
+    color: #777;
+  }
+  .navbar-woan .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-woan .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #333;
+    background-color: transparent;
+  }
+  .navbar-woan .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-woan .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar-woan .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #555;
+    background-color: #e7e7e7;
+  }
+  .navbar-woan .navbar-nav .open .dropdown-menu > .disabled > a,
+  .navbar-woan .navbar-nav .open .dropdown-menu > .disabled > a:hover,
+  .navbar-woan .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+    color: #ccc;
+    background-color: transparent;
+  }
+}
+.navbar-woan .navbar-link {
+  color: #777;
+}
+.navbar-woan .navbar-link:hover {
+  color: #333;
+}
+.navbar-woan .btn-link {
+  color: #777;
+}
+.navbar-woan .btn-link:hover,
+.navbar-woan .btn-link:focus {
+  color: #333;
+}
+.navbar-woan .btn-link[disabled]:hover,
+fieldset[disabled] .navbar-woan .btn-link:hover,
+.navbar-woan .btn-link[disabled]:focus,
+fieldset[disabled] .navbar-woan .btn-link:focus {
+  color: #ccc;
+}
