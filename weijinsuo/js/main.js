@@ -3,6 +3,8 @@ $(function(){
    
  $(window).on('resize',set_carousel_back).trigger('resize')
     
+ //
+ $('[data-toggle="tooltip"]').tooltip();
     
 })
 //设置轮播图的背景

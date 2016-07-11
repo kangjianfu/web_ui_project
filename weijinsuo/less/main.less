@@ -185,6 +185,7 @@ body{
             };
             &.disabled{
                 background-color: #e0e0e0;
+                color:#f5f5f5;
             }
             border-radius: 0;
             border:0;
@@ -194,13 +195,13 @@ body{
                 background-color: #transparent;
                 border-color:transparent;
                 float: right;
-                color:#fff;
                 border-left:1px dashed #c0c0c0;
                 text-align: center; 
                 width:120px;
                 padding:0;
                 height:150px;
                 position: relative;
+                padding-top:40px;
                 &::before{
                     content:" ";
                     top:-8px;
@@ -223,6 +224,38 @@ body{
                     left:-8px;
                     box-shadow:0px 2px 1px #ccc inset;
                 };
+                > .tooltips{
+                    position: absolute;
+                    width:100%;
+                    text-align:content;
+                    top:15px;
+                    > .badge{
+                        display:inline-block;
+                        background-color: transparent;
+                        width:20px;
+                        height:20px;
+                        border-style: solid;
+                        border-width: 1px;
+                        border-radius:0;
+                        padding: 3px;
+                       
+                    } 
+                    > .badge-one{
+                        color:@main_color;
+                        border-color:@main_color;
+                    };
+                    >.badge-two{
+                        color:#399;
+                        border-color:#399
+                    }
+                };
+                >p{
+
+                    margin: 0;
+                    > strong{
+                        font-size:25px;
+                    }
+                } 
 
             };
             >.panel-left{
