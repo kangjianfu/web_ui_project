@@ -145,29 +145,31 @@ body{
 #products{
     background-color: #f0f0f0;
     padding:40px 0;
-    > .container {
-            > .nav-tabs{
-                padding-left: 20px;
-            > li{
-                > a {
-                    font-size:16px;
-                    color:#333;
-                    &:hover{
-                        border-color:transparent;
-                        background-color: transparent;
-                        color:@main_color
-                    }
-                };
+    > .container { 
+        >.ul-wapper{
+           > .nav-tabs{
+                        padding-left: 20px;
+                    > li{
+                        > a {
+                            font-size:16px;
+                            color:#333;
+                            &:hover{
+                                border-color:transparent;
+                                background-color: transparent;
+                                color:@main_color
+                            }
+                        };
 
-            };
-            > li.active{
-                > a{
-                    background-color: transparent;
-                    border: 0;
-                    border-bottom:4px solid @main_color
-                }
-            };
-        };
+                    };
+                    > li.active{
+                        > a{
+                            background-color: transparent;
+                            border: 0;
+                            border-bottom:4px solid @main_color
+                        }
+                    };
+                };
+         };
         >.tab-content {
             padding-top: 50px;
             >.tab-pane > .row  .panel.panel-woan {
