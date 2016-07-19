@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ng-repalt</title>
+
+    <script src="node_modules/angular/angular.js"></script>
+</head>
+<body ng-app="myApp">
+
+
+<ul ng-controller="ListCtrl">
+    <li ng-repeat="item in data " data-id="{{item.id}}">
+    <span>{{$first?'开始了':''}}</span>
+    <strong>{{item.name}}</strong><span>{{item.age}}</span>
+    <span>{{$last?'没有了':''}}</span>
+    </li>
+</ul>
+    <script>
+        /**
+        * myApp Module
+        * 
+        * Description
+        */
+        angular.module('myApp', []).controller('ListCtrl', ['$scope', function ($scope) {
+            $scope.data=[];
+            for (var i = 0; i < 10; i++) {
+                    $scope.data[$scope.data.length]={
+                        id:i,
+                        name:"张三的生活",
+                        age:20+i            
+                 }
+            }
+        }])
+
+    </script>
+</body>
+</html>

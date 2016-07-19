@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ng-show</title>
+    <script src="node_modules/angular/angular.js"></script>
+
+    <style>
+        .tips{
+            position: absolute;
+            top:0;
+            left:0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(100,100,100,.5);
+            font-size: 40px;
+            line-height: 100vh;
+            text-align: center;
+        }
+    </style>
+</head>
+<body ng-app="myApp" ng-controller="ListCtrl">
+    <div>
+        aaaa
+    </div>
+    <div class="tips" ng-if="loading">
+        
+        loading
+    </div>
+    <script>
+        /**
+        * myApp Module
+        *
+        * Description
+        */
+        angular.module('myApp', []).controller('ListCtrl', ['$scope','$timeout' ,function ($scope,$timeout) {
+            $scope.loading=true;
+            $timeout(function(){
+                $scope.loading=false;
+                $timeout(function(){
+                    $scope.loading=true;
+                },3000)
+            },3000)
+        }])
+
+
+    </script>
+</body>
+</html>

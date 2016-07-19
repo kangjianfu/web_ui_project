@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ng-repalt</title>
+
+    <script src="node_modules/angular/angular.js"></script>
+    <style>
+        .red{
+            color: red
+        }
+        .greed{
+            color: green;
+        }
+    </style>
+</head>
+<body ng-app="myApp">
+<ul ng-controller="ListCtrl">
+<!-- class="{{$even?'red':'greed'}}" -->
+<!-- ng-class 会根据当前设置对象的属性和属性值是否添加特定的类名 -->
+    <li ng-repeat="item in data " data-id="{{item.id}}" ng-class="{red:$even,greed:$odd}" >
+    <strong>{{item.name}}</strong><span>{{item.age}}</span>
+    </li>
+</ul>
+    <script>
+        /**
+        * myApp Module
+        * 
+        * Description
+        */
+        angular.module('myApp', []).controller('ListCtrl', ['$scope', function ($scope) {
+            $scope.data=[];
+            for (var i = 0; i < 10; i++) {
+                    $scope.data[$scope.data.length]={
+                        id:i,
+                        name:"张三的生活",
+                        age:20+i            
+                 }
+            }
+        }])
+
+    </script>
+</body>
+</html>

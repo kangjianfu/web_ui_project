@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ng-bind-html</title>
+    <script src="node_modules/angular/angular.js"></script>
+    <script src="node_modules/angular-sanitize/angular-sanitize.js"></script>
+</head>
+<body ng-app='myApp' ng-init="username='<h1>sdfsa</h1>'">
+    <!-- <strong>{{username}}</strong> -->
+    <strong ng-bind-html="username"></strong>
+    <script>
+        /**
+        * myApp Mod'ng-sanitize'ule
+        * Description
+        */
+        angular.module('myApp', ['ngSanitize']);
+    </script>
+</body>
+</html>

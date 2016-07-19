@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ng-app</title>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    /**
+    * myApp Module
+    *
+    * Description
+    */
+    var myapp1=angular.module('myApp1', []);
+    myapp1.controller('App1Ctrl', ['$scope', function ($scope) {
+        $scope.do1=function(){
+            console.log(1);
+        }
+    }]);
+    /**
+    * myApp2 Module
+    *
+    * Description
+    */
+    var myapp2=angular.module('myApp2', []);
+    myapp2.controller('App2Ctrl', ['$scope', function ($scope) {
+        $scope.do2=function(){
+            console.log(2)
+        }
+    }]);
+
+    // angular.bootstrap(document.querySelector('[ng-app="myApp2"]'), ['myApp2'])
+    // 
+    /**
+    * myApp Mod'myApp1','myapp2'ule
+    *
+    * Description
+    */
+    angular.module('myApp', ['myApp1','myApp2']);
+</script>
+</head>
+   
+   
+<body ng-app="myApp">
+     <div  ng-controller="App1Ctrl">
+         <input type="button" value="点击" ng-click="do1()">
+    </div>
+       <div  ng-controller="App2Ctrl">
+         <input type="button" value="点击" ng-click="do2()">
+    </div>
+</body>
+</html>

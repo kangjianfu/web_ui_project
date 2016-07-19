@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ng-repalt</title>
+
+    <script src="node_modules/angular/angular.js"></script>
+    <style>
+        
+        .red{
+            color: red
+        }
+        .greed{
+            color: green;
+        }
+    </style>
+</head>
+<body ng-app="myApp">
+<input type="text" ng-model="lastname">
+
+<ul ng-controller="ListCtrl">
+    <li ng-repeat="item in students  track by $index" ng-class="{red:item.startsWith(lastname)}">
+    
+    <strong>{{item}}</strong>
+   
+    </li>
+</ul>
+    <script>
+        /**
+        * myApp Module
+        * 
+        * Description
+        */
+        angular.module('myApp', []).controller('ListCtrl', ['$scope', function ($scope) {
+            $scope.students=['张三','速度','速读法','ssdfs','sdfsfsf','张三'];
+           
+        }])
+
+    </script>
+</body>
+</html>

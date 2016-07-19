@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ng-class-div</title>
+    <script src="node_modules/angular/angular.js"></script>
+    <style>
+        #box{
+            height: 200px;
+            width: 200px;
+            transition: background-color 1s ease;
+        }
+        .red{
+            background-color: red;
+        }
+        .greed{
+            background-color: green;
+        }
+    </style>
+</head>
+<body ng-app>
+
+    <select name="" id="" ng-model="style">
+        <option value="red">红色</option>
+        <option value="greed">绿色</option>
+    </select>
+  <!--   <div id='box' ng-class="style"></div> -->
+  <div id='box' ng-class="{red:style=='red',greed:style=='greed'}"></div>
+</body>
+</html>
