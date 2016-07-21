@@ -8,7 +8,7 @@
     * Description
     */
     var todoMvc=angular.module('todoMvc', []);
-    todoMvc.controller('mainCtrl', ['$scope', function ($scope) {
+    todoMvc.controller('mainCtrl', ['$scope','$location', function ($scope,$location) {
         //文本框需要一个模型
         $scope.task="";
         //任务列表
@@ -85,7 +85,36 @@
         // })
         // 
         //状态筛选
-        $scope.selector={status:'true'}
+ 
+        //点击事件不合适 有dom 操作
+        //拿到锚点值  
+        var path=$location.path();
+        
+       $scope.$location=$location;
+        $scope.$watch('$location.path()',function(now,old){
+            switch (now){
+                case '/active':
+                 $scope.selector={status:false}
+                break;
+                case '/completed':
+                $scope.selector={status:true}
+                break;
+                default:
+                $scope.selector={}
+                break;
+            }
+        });
+
+
+
+        //自定义过滤器h函数 默认的过滤器匹配的是模糊匹配哦
+        $scope.eq=function(source,target){
+            console.log(source);
+            console.log(target)
+            return source===target;
+        }
+
+        //console.log($location.)
     }]);
 
 

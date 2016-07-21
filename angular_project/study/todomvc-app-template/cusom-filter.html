@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义过滤器</title>
+    <script src="node_modules/angular/angular.js"></script>
+</head>
+<body>
+<div ng-app="app">
+    
+    <h1>{{true|checkmark:1}}</h1>
+    <h1>{{false|checkmark}}</h1>
+     <h1>{{false|checkmark:2}}</h1>
+    <h1>{{true|checkmark:2}}</h1>
+<hr>
+<p>
+    
+
+<input type="text" name="" id="" value="" ng-model='tizhong' placeholder="请输入你的体重">
+</p>
+<p>
+    你的体重是：{{tizhong}} KG
+    <br>
+    {{tizhong|show_msg}}
+</p>
+</div>
+    <script>
+      /**
+        * app Module
+        *
+        * Description
+        */
+        angular.module('app', []).filter('checkmark',function() {
+            return function(input,style){
+                style = style||1;
+                switch(style){
+                    case 1:
+                     return input ? '\u2713':'\u2718';
+                    case 2:
+                    return input ? '\u2714':'\u2719';
+                }
+            
+            }
+        })
+        .filter('show_msg',function() {
+            return function(input){
+                if(input>100){
+                    return '你太重了'
+                }else{
+                    return '你太瘦了'                }
+            }
+        });
+        ;
+
+    </script>
+</body>
+</html>
