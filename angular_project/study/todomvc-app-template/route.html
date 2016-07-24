@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>route</title>
+</head>
+<body ng-app='app'>
+
+<script id='tmpl' type='text/ng-template'>
+    <!-- 就算不能执行也不能显示 -->
+
+    <h1>{{title}}</h1>
+</script>
+    <div ng-view></div>
+    <ul>
+        <li><a href="#/a">A</a></li>
+        <li><a href="#/b">b</a></li>
+        <li><a href="#/d">d</a></li>
+    </ul>
+</body>
+
+<script src="node_modules/angular/angular.js"></script>
+<script src="node_modules/angular-route/angular-route.js"></script>
+<script>
+   /**
+    * app Module
+    *
+    * Description
+    */
+   var app= angular.module('app', ['ngRoute']);
+   app.config(['$routeProvider',function($routeProvider) {
+       $routeProvider
+       .when('/a',{controller:'aCtrl',templateUrl:'tmpl'})
+       .when('/b',{controller:'bCtrl',templateUrl:'tmpl'})
+       .when('/d', {
+           // templateUrl: './views/d.html',
+           templateUrl:'tmpl',
+           controller: 'dCtrl'
+       })
+       .when('/student/:name?', {
+           templateUrl: 'tmpl',
+           controller: 'StudentCtrl'
+       })
+       //别的请求。都是跳转。。默认页面
+       .otherwise({redirectTo: '/a' });
+       
+   }]);
+   app.controller('aCtrl', ['$scope', function ($scope) {
+       $scope.title="这是a"
+   }]);
+   app.controller('bCtrl', ['$scope', function ($scope) {
+       $scope.title='这是b'
+   }]);
+   app.controller('dCtrl', ['$scope', function ($scope) {
+       $scope.title='这是D控制器'
+   }]);
+   app.controller('StudentCtrl',['$scope','$routeParams', function ($scope,$routeParams) {
+       $scope.title='你好。。。。'+$routeParams.name
+   }])
+
+</script>
+</html>
