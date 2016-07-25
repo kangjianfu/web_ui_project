@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jsonp 自己实现</title>
+</head>
+<body>
+<div id="result"></div>
+    <script>
+
+
+
+        (function(window,document){
+            //1：手写一个jsop的实现
+            var jsonp=function(url,data,callback){
+                if(!url){
+                    return ;
+                }; 
+                var callback_name='my_jsonp_'+Math.random().toString().replace(".","");
+                window[callback_name]=callback;
+                var queryString=url.indexOf('?')==-1?'?':"";
+                for(var key in data){
+                    queryString+=key +'='+data[key]+'&';
+                }
+                queryString+='callback='+callback_name;
+
+               var script= document.createElement('script');
+               console.info(url+queryString)
+               script.src=url+queryString;
+               document.body.appendChild(script)
+               
+            };
+            window.$jsonp=jsonp;
+        })(window,document,undefined)
+
+    </script>
+
+    <script  type="text/javascript" charset="utf-8">
+    $jsonp('http://api.douban.com/v2/movie/in_theaters',{count:10,start:5},function(data){
+        document.getElementById('result').innerHTML=JSON.stringify(data);
+    })    
+
+
+    </script>
+</body>
+</html>

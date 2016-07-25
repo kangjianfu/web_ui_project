@@ -1,10 +1,4 @@
-(function(angular){
-    /**
-    * moivecat.inteaters Module
-    *
-    * Description
-    */
-   var data={
+{
   "count": 20,
   "start": 0,
   "total": 22,
@@ -1399,14 +1393,4 @@
     }
   ],
   "title": "正在上映的电影-北京"
-};
-    angular.module('moivecat.in_theaters', ['ngRoute']).config(['$routeProvider', function($routeProvider) {
-    $routeProvider.when('/in_theaters', {
-      templateUrl: './in_theaters/view.html',
-      controller: 'In_TheatersCtrl'
-    });
-  }]).controller('In_TheatersCtrl', ['$scope', function($scope){
-        $scope.title='正在热映';
-        $scope.data=data.subjects;
-    }])
-})(angular)
+}

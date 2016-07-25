@@ -1,1 +1,20 @@
 <h1 class="page-header">{{title}}</h1>
+
+<ul class="list-group">
+  <a class="list-group-item" ng-repeat="item in data" href="#">
+  <span class="badge">{{item.rating.average}}</span>
+      <div class="media">
+      <div class="media-left">
+          <img class="media-object" ng-src="{{item.images.small}}" alt="{{item.title}}">
+      </div>
+      <div class="media-body">
+        <h2 class="media-heading">{{item.title}}</h2>
+
+        <p>类型：{{item.genres.join('、')}}</p>
+        <p>主演：<span ng-repeat="cast in item.casts">{{cast.name}} <span ng-if="!$last">、</span></span></p>
+        <p>导演：<span ng-repeat="director in item.directors">{{director.name}} <span ng-if="!$last">、</span></span></p>
+      </div>
+    </div>
+</a>
+ 
+</ul>
