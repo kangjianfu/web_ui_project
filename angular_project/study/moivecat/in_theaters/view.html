@@ -1,5 +1,4 @@
 <h1 class="page-header">{{title}}</h1>
-
 <ul class="list-group">
   <a class="list-group-item" ng-repeat="item in data" href="#">
   <span class="badge">{{item.rating.average}}</span>
@@ -18,3 +17,14 @@
 </a>
  
 </ul>
+
+<p>共 {{total}} 条</p>
+<div id="loading" ng-show="loading">
+  <div class="sk-folding-cube">
+        <div class="sk-cube1 sk-cube"></div>
+        <div class="sk-cube2 sk-cube"></div>
+        <div class="sk-cube4 sk-cube"></div>
+        <div class="sk-cube3 sk-cube"></div>
+      </div>
+
+</div>
