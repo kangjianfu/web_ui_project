@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>直播云远程协助</title>
+		<link href="img/favicon.png" rel="shortcut icon">
+		<link rel="stylesheet" type="text/css" href="css/easyui.css" charset="UTF-8" />
+		<link rel="stylesheet" type="text/css" href="css/icon.css" charset="UTF-8" />
+		<link rel="stylesheet" type="text/css" href="css/icon_albb.css" />
+		<link rel="stylesheet" type="text/css" href="css/index.css" charset="UTF-8" />
+		<link rel="stylesheet" type="text/css" href="css/remote.css" charset="UTF-8"/>
+		<script src="js/easyui/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/easyui/1.4.5/jquery.easyui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/easyui/easyui-lang-zh_CN.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/player/swfobject.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/hmac-sha256.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.mousewheel.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body class="easyui-layout">
+		<div class="cotainer"  data-options="region:'center'">
+			<div  id="remote_video_container" >
+				<div id="video_parent_div" style="border: 1px solid #FF0000;display: inline-block;">
+					<div id='remote_video' ></div>
+				</div>
+			</div>
+		</div>
+		<div class="cotainer"  data-options="region:'west'" style="width: 220px;">
+			<div id="opertion">
+				<div class="item">
+					<a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-albb-paishe'" onclick="take_picture()">拍摄照片</a>
+				</div>
+				<div class="item" id='btn_open_flash_div'>
+					<a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-albb-open'" id='btn_open_flash' onclick="open_flash(this)">开闪光灯</a>
+				</div>
+				
+				<div class="item" style="display: none;" id='btn_close_flash_div'>
+					<a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-albb-close'" id='btn_close_flash' onclick="close_flash(this)">关闪光灯</a>
+				</div>
+					<div class="item">
+					<a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-albb-fangda'" onclick="zoom_in()">远程放大 </a>
+				</div>
+					<div class="item">
+					<a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-albb-suoxiao'" onclick="zoom_out()">远程缩小</a>
+				</div>
+				<div class="item" id="draw_line_btn_div">
+					<a id="btn" href="#" class="easyui-linkbutton" id="draw_line_btn" data-options="iconCls:'icon-albb-huaxian'" onclick="draw_line(this)">远程画线</a>
+				</div>
+				
+				<div class="item" id="stop_draw_line_btn_div" style="display: none;">
+					<a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-albb-stop'" onclick="stop_draw_line(this)">停止画线</a>
+				</div>
+				<div class="item">
+					<p class="tip">发文字消息</p>
+					<p style="padding-left: 5px;">
+						<input id="msg_text" type="text" class="easyui-textbox" data-options="buttonIcon:'icon-albb-fasong',buttonText:'发送',multiline:true,onClickButton:send_txt_msg" style="width: 95%;height: 50px;">
+					</p>
+				
+				</div>
+				
+				<div class="item" >
+					<p class="tip">发语音消息</p>
+					<div id="rtmp_publisher"></div>
+					<p style="margin-top: 15px;">
+						<a id="start_audio" href="#"  onclick="start_audio()">发起语音通话</a>
+						
+					</p>
+					<p style="margin-top: 15px;">
+						<a id="stop_audio" href="#"  onclick="stop_audio()" >停止音通话</a>
+					</p>
+				</div>
+			</div>
+		
+		</div>
+		<div  data-options="region:'south',border:true,split:false" style="height:30px;line-height: 20px;text-align: center;">&copy; 沃安科技 All Rights Reserved</div>
+		
+	</body>
+	<script>
+		var dist_name=null;
+		var remote_url=null;
+		var remote_task_id=null;
+		var v_height=null;
+		var v_width=null;
+		$(function(){
+			dist_name=sessionStorage.getItem("dist_name")
+			remote_url=sessionStorage.getItem("remote_url")
+			remote_task_id=sessionStorage.getItem("remote_task_id")
+			v_height=sessionStorage.getItem("v_height")
+			v_width=sessionStorage.getItem("v_width")
+			if(!dist_name || !remote_task_id || !remote_url){
+				$.messager.alert('<span class="easyui-alert-title"><i class="iconfont">&#xe61c</i> 系统提示<span>','<div class="msg_alert_ok">参数不完整，页面将关闭</div>','info');
+				//setTimeout(closeCurrentPage,1000)
+				return;
+			}else{
+				initPage();
+				init_audio();
+				//init_yuyin()
+				//检测视频是否结束
+				setInterval(check_video_status,2000)
+			}
+			
+		})
+		
+/*  document.addEventListener("DOMContentLoaded", function(event) { 
+  		console.info(1)
+        swfobject.embedSWF("RtmpPublisher.swf", "rtmp_publisher", "200", "70", "9.0.0", null, flashVars, null, null, onSwfLoaded);
+  });*/
+	</script>
+	<script src="js/remote.js" type="text/javascript" charset="utf-8"></script>
+</html>

@@ -1,0 +1,49 @@
+.easyui-alert-title {
+    display: block;
+    color: red;
+    padding-top: 0px;
+}
+#remote_video_container {
+	width: auto;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	background: #CCCCCC;
+}
+
+.item {
+	margin: 10px auto;
+	width: 100%;
+	text-align: center;
+}
+
+#opertion {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}
+
+.item .tip {
+	text-align: center;
+	font-size: 18px;
+	color: orangered;
+	font-weight: 100;
+	height: 36px;
+	line-height: 30px;
+}
+.item p{
+	text-align: center;
+}
+
+#rectBox{
+  background:#CCFFFF;
+  border:2px solid red;
+  filter:alpha(opacity=30);
+  opacity:0.3;
+  position:absolute;
+}

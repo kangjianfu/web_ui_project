@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8" />
+	<link href="img/favicon.png" rel="shortcut icon">
+	<link rel="stylesheet" type="text/css" href="css/easyui.css" charset="UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="css/icon.css" charset="UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="css/icon_albb.css"/>
+	<link rel="stylesheet" type="text/css" href="css/index.css" charset="UTF-8"/>
+	<script src="js/easyui/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/easyui/1.5.1/jquery.easyui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/easyui/easyui-lang-zh_CN.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/player/swfobject.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/hmac-sha256.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+	<title>直播云远程协助</title>
+	</head>
+	<body class="easyui-layout">
+		<div class="cotainer"  data-options="region:'center'">
+			<div class="main-row" id="live_video_container" ></div>
+		</div>
+		<div  data-options="region:'south',border:true,split:false" style="height:30px;line-height: 20px;text-align: center;">&copy; 沃安科技 All Rights Reserved</div>
+		
+		<div id="login" >
+			<table class="base_table">
+				<tr><td colspan="2" style="color: red;font-size:14x" id="login_msg">该示例需要使用chrome内核浏览器。IE11 以下内核暂不支持</td></tr>
+				<tr><th>服务码：</th><td><input type="text" name="service_code" id="service_code" class="easyui-textbox" data-options="required:true" style="width:230px;" /></td></tr>
+				<tr><th>签名密钥：</th><td><input type="text" name="api_key" id="api_key" class="easyui-textbox" data-options="required:true" style="width:230px;" /></td></tr>
+			</table>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var service_code=sessionStorage.getItem('service_code');
+		var api_key=sessionStorage.getItem("api_key");
+		var login_div=null;
+		var task_timer=null;
+		$(function(){
+			if(service_code==null || api_key==null){
+				login_div=$("#login").dialog({
+				title:"身份认证",
+				iconCls:'icon-albb-renzheng',
+			    width: 460,    
+			    height: 300,    
+				colosed:false,
+				closable:false,
+				cache:false,
+				modal:true,
+				buttons:[{
+					text:'认证',
+					iconCls:'icon-albb-login',
+					handler:function(){
+						service_code=$("#service_code").val();
+						api_key=$("#api_key").val();
+						if(service_code&&api_key){
+							sessionStorage.clear();
+							sessionStorage.setItem('service_code',$("#service_code").val())
+							sessionStorage.setItem('api_key',$("#api_key").val())
+							check_login(service_code,api_key,login_div)
+						}else{
+							$("#login_msg").text("请输入服务码和签名密钥");	
+						}
+					}
+				}]
+				})
+			}else{
+				task_list()
+				setInterval(task_list,2000);
+				$("#login").hide()
+			}
+			
+			
+			/*if(!service_code || !api_key){
+				sessionStorage.clear();
+				
+			}else{
+				//$("#login").hide()
+				//第一次加载
+				//task_list()
+				//timer=setInterval(task_list,2000)
+				//定时刷新
+				login_div.dialog('open')
+				alert("服务码和密钥不存在")
+			}*/
+		})
+	</script>
+</html>
