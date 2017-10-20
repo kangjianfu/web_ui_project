@@ -25,7 +25,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="cotainer"  data-options="region:'west'" style="width: 220px;">
+		<div class="cotainer"  data-options="region:'west'" style="width: 260px;">
 			<div id="opertion">
 				<div class="item">
 					<a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-albb-paishe'" onclick="take_picture()">拍摄照片</a>
@@ -58,16 +58,18 @@
 				
 				</div>
 				
-				<div class="item" >
+				<div class="item" id="rtmp_flash_div">
 					<p class="tip">发语音消息</p>
 					<div id="rtmp_publisher"></div>
+				</div>
+				<div>
 					<p style="margin-top: 15px;">
 						<a id="start_audio" href="#"  onclick="start_audio()">发起语音通话</a>
-						
 					</p>
 					<p style="margin-top: 15px;">
 						<a id="stop_audio" href="#"  onclick="stop_audio()" >停止音通话</a>
 					</p>
+					
 				</div>
 			</div>
 		
@@ -89,22 +91,17 @@
 			v_width=sessionStorage.getItem("v_width")
 			if(!dist_name || !remote_task_id || !remote_url){
 				$.messager.alert('<span class="easyui-alert-title"><i class="iconfont">&#xe61c</i> 系统提示<span>','<div class="msg_alert_ok">参数不完整，页面将关闭</div>','info');
-				//setTimeout(closeCurrentPage,1000)
+				setTimeout(closeCurrentPage,1000)
 				return;
 			}else{
 				initPage();
 				init_audio();
-				//init_yuyin()
 				//检测视频是否结束
 				setInterval(check_video_status,2000)
 			}
 			
 		})
 		
-/*  document.addEventListener("DOMContentLoaded", function(event) { 
-  		console.info(1)
-        swfobject.embedSWF("RtmpPublisher.swf", "rtmp_publisher", "200", "70", "9.0.0", null, flashVars, null, null, onSwfLoaded);
-  });*/
 	</script>
-	<script src="js/remote.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/remote.js" charset="UTF-8"></script>
 </html>

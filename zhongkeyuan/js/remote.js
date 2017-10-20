@@ -8,6 +8,8 @@ var draw_btn = null;
 var start_audio_btn = null;
 var stop_audio_btn = null;
 var rtmpPusher=null;
+var rtmp_push_url="rtmp://xvs-tcp-input.zhiboyun.com/live"
+var audio_connect_time=6;
 /**
  * 默认放大的倍数
  */
@@ -97,7 +99,6 @@ Rect.prototype.showRect = function(bool) {
 		this.rectBox.style.left = this.startX + 'px';
 		this.rectBox.style.top = this.startY + 'px';
 		this.addEventListener(this.doc, 'mousemove', this.move);
-		console.info(this)
 	} else {
 		if(this.rectBox) {
 			this.rectBox.style.display = "none";
@@ -329,7 +330,6 @@ function check_video_status() {
 		dataType: "json",
 		crossDomain: true,
 		success: function(data) {
-			console.info(data)
 			var videos = data.task_list;
 			if(videos.length > 0) {
 				for(let i = 0; i < videos.length; i++) {
@@ -367,11 +367,15 @@ function init_audio() {
 		'disabled':true,
 		'text': '停止语音通话'
 	});
+	init_rtmp_flash();
+}
+
+var init_rtmp_flash=function(){
 	swfobject.embedSWF(
 		"js/player/swf/RtmpPublisher.swf",
 		"rtmp_publisher",
-		"200",
-		"70",
+		"220",
+		"150",
 		"9.0.0",
 		null,
 		flashVars,
@@ -380,7 +384,6 @@ function init_audio() {
 		onSwfInited
 	);
 }
-
 
 var flashVars = {
 	width: 200,
@@ -414,43 +417,34 @@ function onSwfLoaded() {
 
 
 function start_audio(){
-	rtmpPusher = document.getElementById("rtmp_publisher")
-	console.info(rtmpPusher);
-	var opaque={"player_user":dist_name}
-	rtmpPusher.start("rtmp://xvs-tcp-input.zhiboyun.com/live", "admin", "admin", service_code, "", JSON.stringify(opaque));
-	/*if(rtmpPusher.isPublishing()) {
-		start_audio_btn.linkbutton({
-			'iconCls': 'icon-albb-yuyin',
-			'text': '发起语音通话'
-		});
-		rtmpPusher.stopPublish();
-		console.info("正在通话")
-		
-	} else {
-		
-		//rtmp.startPublish();
-	}*/
+	let rtmp = document.getElementById("rtmp_publisher")
+	var opaque={"player_user":dist_name};
+	start_audio_btn.linkbutton({
+		'disabled':true,
+		'text': '正在连接中。。。'
+	});
+	if(rtmp.isPublishing()){
+		$.messager.alert('<span class="easyui-alert-title"><i class="iconfont">&#xe61c</i> 系统提示<span>', '语音通话未正常结束，请刷新页面。', 'info');
+	}else{
+		rtmp.start(rtmp_push_url, "admin", "admin", service_code, "", JSON.stringify(opaque));
+	}
 }
 
 
 
 function rtmpOnConnected() {
-	console.log("rtmp connect ok");
-	
+	start_audio_btn.linkbutton({
+		'disabled':true,
+		'text': '服务连接成功'
+	});
 }
 
 function loseConnection() {}
 
 function rtmpOnStartPublish() {
 	console.log("rtmp start publish");
-	start_audio_btn.linkbutton({
-		'iconCls': 'icon-albb-yuyin-ing',
-		'disabled':true,
-		'text': '正在语音通话中'
-	});
-	stop_audio_btn.linkbutton({
-		'disabled':false
-	})
+	//5s 后可以通话
+	countDown(start_audio_btn,stop_audio_btn)
 }
 
 function rtmpOnStopPublish() {
@@ -466,72 +460,68 @@ function rtmpOnConnectFail() {
 
 function rtmpOnConnectClosed() {
 	console.log("rtmp stop close");
+	var rtmp = document.getElementById("rtmp_publisher")
 	start_audio_btn.linkbutton({
 		'iconCls': 'icon-albb-yuyin',
 		'disabled':false,
-		'text': '发起语音通话中'
+		'text': '发起语音通话'
 	});
 	stop_audio_btn.linkbutton({
 		'disabled':true
 	})
- 	rtmpPusher.stopPublish();
-	rtmpPusher.disconnect();
+ 	rtmp.stopPublish();
+	rtmp.disconnect();
 }
 
 function rtmpOnConnectRejected() {
 	console.log("rtmp connect rejected");
-	//loseConnection();
 }
 
-/*
-function loseConnection() {
-	console.log("rtmp loseConnection ");
-	//document.getElementById("btn_live_audio").disabled = true;
-	//document.getElementById("btn_live_audio").value = "开始语音通话";
-	//connectRtmp();
-}
 
-function rtmpOnStartPublish() {
-	console.info("已开始。。。推送")
-	audio_btn.linkbutton({
-			'iconCls':'icon-albb-yuyin-ing',
-			'text':'停止语音通话'
+/**
+ * 停止播放
+ */
+function stop_audio(){
+	var rtmp = document.getElementById("rtmp_publisher")
+	start_audio_btn.linkbutton({
+		'iconCls': 'icon-albb-yuyin',
+		'disabled':false,
+		'text': '发起语音通话'
 	});
-	//document.getElementById("btn_live_audio").value = "停止语音通话";
-	//$("#btn_live_audio").attr('class', 'btn btn-small btn-inverse');
+	stop_audio_btn.linkbutton({
+		'disabled':true
+	})
+ 	rtmp.stopPublish();
+	rtmp.disconnect();
+	$("#rtmp_publisher").remove();
+	$("#rtmp_flash_div").append('<div id="rtmp_publisher"></div>')
+	init_rtmp_flash();
 }
 
-function rtmpOnStopPublish() {
-	console.log("rtmp stop publish");
-	//document.getElementById("btn_live_audio").value = "开始语音通话";
-	audio_btn.linkbutton({
-			'iconCls':'icon-albb-yuyin',
-			'text':'发起语音通话'
-	});
+/**
+ * 倒计时。。5 s
+ */
+function countDown(startAudioBtn,stopAudioBtn) {  
+    if (audio_connect_time == 0) {  
+        startAudioBtn.linkbutton({
+    	'iconCls': 'icon-albb-yuyin-ing',
+		'text': '<font style="color:red">正在语音通话</font>'
+		});
+		stopAudioBtn.linkbutton({
+		'disabled':false
+		})
+        audio_connect_time = 5;  
+    } else {  
+       startAudioBtn.linkbutton({
+    	'iconCls': 'icon-albb-daojishi',
+		'text': '<font style="color:red">'+audio_connect_time+'S后可以通话</font>'
+		});
+        audio_connect_time--;  
+        setTimeout(function() {  
+            countDown(startAudioBtn,stopAudioBtn)  
+        },1000)  
+    } 
 }
-
-function rtmpOnConnectFail() {
-	console.log("rtmp connect fail");
-	audio_btn.linkbutton({
-			'iconCls':'icon-albb-yuyin',
-			'text':'发起语音通话'
-	});
-}
-
-function rtmpOnConnectClosed() {
-	console.log("rtmp connect close");
-	audio_btn.linkbutton({
-			'iconCls':'icon-albb-yuyin',
-			'text':'发起语音通话'
-	});
-}
-
-function rtmpOnConnectRejected() {
-	console.log("rtmp connect rejected");
-	
-}
-*/
-
 /*关闭当前页面*/
 
 function closeCurrentPage() {

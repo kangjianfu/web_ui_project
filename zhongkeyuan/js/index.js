@@ -19,7 +19,10 @@ var BASE_URL = 'http://c.zhiboyun.com';
 var dst_user_name = null;
 var dst_service_code = '';
 var vs_id = '';
-
+//当前在线直播id
+var current_online_task_ids=[];
+//之前在线 直播id
+var old_online_task_ids=[];
 /**
 * 时间对象的格式化;
 */
@@ -92,24 +95,38 @@ function task_list(){
 		dataType: "json",
 		crossDomain: true,
 		success: function(data){
-			var videos = data.task_list;
+			let videos = data.task_list;
+			let current_online_task_ids=[];
 			if(videos.length > 0) {
-				$("#no_videos_tip").remove()
+				$("#no_videos_tip").remove();
 				for(let i = 0; i < videos.length; i++) {
-					let current_video_id = videos[i].id + "_parent"
-					if($("#" + current_video_id).length > 0) {
-						console.info("已存在")
-						continue;
-					} else {
-						//视频已经停止
-						$("#" + current_video_id).remove()
+					current_online_task_ids.push(videos[i].id);
+					//判断当前任务是否已经存在
+					let isExist=old_online_task_ids.indexOf(videos[i].id);
+					//如果不存在
+					if(isExist<0){
+						old_online_task_ids.push(videos[i].id);
+						let vidoInfo = getVideoInfo(videos[i])
+						vidoInfo.user_name = videos[i].inputs[0].user_name
+						init_player_div(vidoInfo)
 					}
-					let vidoInfo = getVideoInfo(videos[i])
-					vidoInfo.user_name = videos[i].inputs[0].user_name
-					init_player_div(vidoInfo)
 				}
+				if(old_online_task_ids.length==0 && current_online_task_ids.length!=0){
+					old_online_task_ids=current_online_task_ids.slice();
+				}else{
+					//获取两个数组的差集合
+					let diff=current_online_task_ids.concat(old_online_task_ids).filter(function(v){
+						return current_online_task_ids.indexOf(v)===-1 || old_online_task_ids.indexOf(v)===-1
+					})
+					diff.forEach(function(item){
+						$("#"+item+"_parent").parent().remove()		
+					})
+				}
+				
 			} else {
-				$("#live_video_container").empty()
+				$("#live_video_container").empty();
+				old_online_task_ids=[];
+				
 				$("#live_video_container").append('<div  id="no_videos_tip"> 暂无直播</div>')
 			}
 			
@@ -200,6 +217,9 @@ function getVideoInfo(info){
 
 //序列化播放页
 var init_player_div=function(data){
+		if(data.width==0){
+			return;
+		}
 		var panel_width=parseInt(data.width)+10
 		var panel_height=parseInt(data.height)+35
 		var v_width=data.width || 320;
